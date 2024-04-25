@@ -5,7 +5,7 @@ import TripControlsView from '../view/trip-controls-view';
 import TripFiltersView from '../view/trip-filters-view';
 import TripFilterView from '../view/trip-filter-view';
 import TripFiltersSubmitView from '../view/trip-filters-submit-view';
-import NewEventButton from '../view/new-event-button';
+import NewEventButtonView from '../view/new-event-button-view';
 
 const tripFilters = ['Everything', 'Future', 'Present', 'Post'];
 
@@ -15,7 +15,7 @@ export default class TripMainPresenter {
   tripControlsComponent = new TripControlsView();
   tripFiltersComponent = new TripFiltersView();
   tripFiltersSubmitComponent = new TripFiltersSubmitView();
-  newEventButtonComponent = new NewEventButton();
+  newEventButtonComponent = new NewEventButtonView();
 
   constructor({container}) {
     this.container = container;

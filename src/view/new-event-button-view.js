@@ -1,6 +1,6 @@
 import {createElement} from '../render';
 
-function createNewEventButtonTemplate() {
+function createNewEventButtonViewTemplate() {
   return `
     <button
       class="trip-main__event-add-btn btn btn--big btn--yellow"
@@ -11,9 +11,9 @@ function createNewEventButtonTemplate() {
   `;
 }
 
-export default class NewEventButton {
+export default class NewEventButtonView {
   getTemplate() {
-    return createNewEventButtonTemplate();
+    return createNewEventButtonViewTemplate();
   }
 
   getElement() {
