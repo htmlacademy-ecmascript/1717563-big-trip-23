@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {createElement} from '../render';
 
 function createMessageTemplate(message) {
@@ -7,7 +6,7 @@ function createMessageTemplate(message) {
 
 export default class MessageView {
   constructor(message) {
-    this.message = _.capitalize(message);
+    this.message = message;
   }
 
   getTemplate() {

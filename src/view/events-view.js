@@ -1,20 +1,12 @@
 import {createElement} from '../render';
 
-function createLogoTemplate() {
-  return `
-    <img
-      class="page-header__logo"
-      src="img/logo.png"
-      width="42"
-      height="42"
-      alt="Trip logo"
-     >
-  `;
+function createEventsTemplate() {
+  return '<ul class="trip-events__list"></ul>';
 }
 
-export default class LogoView {
+export default class EventsView {
   getTemplate() {
-    return createLogoTemplate();
+    return createEventsTemplate();
   }
 
   getElement() {
