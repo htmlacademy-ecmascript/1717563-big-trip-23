@@ -1,41 +1,40 @@
-import {capitalize, lowerCase} from 'lodash';
 import {createElement} from '../render';
 
-function createTripInfoTemplate({title, dates, cost}) {
+function createInfoTemplate() {
   return `
     <section class="trip-main__trip-info trip-info">
       <div class="trip-info__main">
-        <h1 class="trip-info__title">${title}</h1>
-        <p class="trip-info__dates">${dates}</p>
+        <h1 class="trip-info__title">Amsterdam &mdash; Chamonix &mdash; Geneva</h1>
+        <p class="trip-info__dates">18&nbsp;&mdash;&nbsp;20 Mar</p>
       </div>
       <p class="trip-info__cost">
-        Total: &euro;&nbsp;<span class="trip-info__cost-value">${cost}</span>
+        Total: &euro;&nbsp;<span class="trip-info__cost-value">1230</span>
       </p>
     </section>
   `;
 }
 
-function createTripControlsTemplate(filters) {
+function createControlsTemplate(filters) {
   return `
     <div class="trip-main__trip-controls trip-controls">
       <div class="trip-controls__filters">
         <h2 class="visually-hidden">Filter events</h2>
         <form class="trip-filters" action="#" method="get">
-          ${filters.map((filter, index) => `
+          ${filters.map((filter) => `
             <div class="trip-filters__filter">
               <input
-                id="filter-everything"
+                id="filter-${filter}"
                 class="trip-filters__filter-input visually-hidden"
                 type="radio"
                 name="trip-filter"
-                value=${lowerCase(filter)}
-                ${index === 0 ? 'checked' : ''}
+                value=${filter}
+                ${filter === 'everything' ? 'checked' : ''}
               >
               <label
                 class="trip-filters__filter-label"
-                for="filter-everything"
+                for="filter-${filter}"
               >
-                ${capitalize(filter)}
+                ${filter}
               </label>
             </div>
           `).join('')}
@@ -47,11 +46,11 @@ function createTripControlsTemplate(filters) {
   `;
 }
 
-function createTripMainTemplate(tripInfo, tripFilters) {
+function createTripMainTemplate(filters) {
   return `
     <div class="trip-main">
-      ${createTripInfoTemplate(tripInfo)}
-      ${createTripControlsTemplate(tripFilters)}
+      ${createInfoTemplate()}
+      ${createControlsTemplate(filters)}
 
       <button
         class="trip-main__event-add-btn btn btn--big btn--yellow"
@@ -64,13 +63,12 @@ function createTripMainTemplate(tripInfo, tripFilters) {
 }
 
 export default class TripMainView {
-  constructor({tripInfo, tripFilters}) {
-    this.tripInfo = tripInfo;
-    this.tripFilters = tripFilters;
+  constructor({filters}) {
+    this.filters = filters;
   }
 
   getTemplate() {
-    return createTripMainTemplate(this.tripInfo, this.tripFilters);
+    return createTripMainTemplate(this.filters);
   }
 
   getElement() {

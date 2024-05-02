@@ -1,25 +1,24 @@
-import {capitalize, lowerCase} from 'lodash';
 import {createElement} from '../render';
 
 function createTripSortTemplate(sorts) {
   return `
     <form class="trip-events__trip-sort trip-sort" action="#" method="get">
-      ${sorts.map((sort, index) => `
-        <div class="trip-sort__item trip-sort__item--${lowerCase(sort)}">
+      ${sorts.map((sort) => `
+        <div class="trip-sort__item trip-sort__item--${sort}">
           <input
-            id="sort-${lowerCase(sort)}"
+            id="sort-${sort}"
             class="trip-sort__input visually-hidden"
             type="radio"
             name="trip-sort"
-            value="sort-${lowerCase(sort)}"
-            ${index === 0 ? 'checked' : ''}
-            ${index === 1 || index === 4 ? 'disabled' : ''}
+            value="sort-${sort}"
+            ${sort === 'days' ? 'checked' : ''}
+            ${sort === 'event' || sort === 'offers' ? 'disabled' : ''}
           >
           <label
             class="trip-sort__btn"
-            for="sort-${lowerCase(sort)}"
+            for="sort-${sort}"
           >
-            ${capitalize(sort)}
+            ${sort}
           </label>
         </div>
       `).join('')}

@@ -1,17 +1,11 @@
-export const TRIP_FILTERS = [
+export const FILTERS = [
   'everything',
   'future',
   'present',
   'past',
 ];
 
-export const TRIP_INFO = {
-  title: 'Amsterdam &mdash; Chamonix &mdash; Geneva',
-  dates: '18&nbsp;&mdash;&nbsp;20 Mar',
-  cost: '1230',
-};
-
-export const TRIP_SORTS = [
+export const SORT_TYPES = [
   'days',
   'event',
   'time',
@@ -19,4 +13,15 @@ export const TRIP_SORTS = [
   'offers',
 ];
 
-export const TRIP_EVENTS = ['', '', ''];
+export const EVENT_TYPES = [
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'drive',
+  'flight',
+  'check-in',
+  'sightseeing',
+  'restaurant',
+];
+

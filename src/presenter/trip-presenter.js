@@ -3,50 +3,45 @@ import HeaderView from '../view/header-view';
 import TripMainView from '../view/trip-main-view';
 import MainView from '../view/main-view';
 import TripSortView from '../view/trip-sort-view';
-import TripEventsView from '../view/trip-events-view';
+import EventsView from '../view/events-view';
 import EventView from '../view/event-view';
 import EventEditView from '../view/event-edit-view';
-import {
-  TRIP_INFO,
-  TRIP_FILTERS,
-  TRIP_SORTS,
-  TRIP_EVENTS,
-} from '../consts';
+import {FILTERS, SORT_TYPES, EVENT_TYPES} from '../consts';
+import {mockDestinations} from '../mock/destinations';
 
 export default class TripPresenter {
   headerComponent = new HeaderView();
   mainComponent = new MainView();
+  tripEventsElement = this.mainComponent.getElement().querySelector('.trip-events');
+  eventsComponent = new EventsView();
 
-  constructor({container}) {
+  constructor({container, eventsModel}) {
     this.container = container;
+    this.eventsModel = eventsModel;
   }
 
   init() {
-    render(this.headerComponent, document.body);
+    this.tripEvents = [...this.eventsModel.getEvents()];
+
+    render(this.headerComponent, this.container);
     render(
-      new TripMainView({
-        tripInfo: TRIP_INFO,
-        tripFilters: TRIP_FILTERS,
+      new TripMainView({filters: FILTERS}),
+      this.headerComponent.getElement().querySelector('.page-body__container')
+    );
+    render(this.mainComponent, this.container);
+    render(new TripSortView(SORT_TYPES), this.tripEventsElement);
+    render(this.eventsComponent, this.tripEventsElement);
+
+    render(
+      new EventEditView({
+        types: EVENT_TYPES,
+        destinations: mockDestinations,
       }),
-      this.headerComponent
-        .getElement()
-        .querySelector('.page-body__container')
+      this.eventsComponent.getElement()
     );
-    render(this.mainComponent, document.body);
-    render(
-      new TripSortView(TRIP_SORTS),
-      this.mainComponent
-        .getElement()
-        .querySelector('.trip-events')
-    );
-    render(
-      new TripEventsView(
-        TRIP_EVENTS,
-        new EventView().getTemplate(),
-        new EventEditView().getTemplate()),
-      this.mainComponent
-        .getElement()
-        .querySelector('.trip-events')
-    );
+
+    this.tripEvents.map((event) => {
+      render(new EventView({event}), this.eventsComponent.getElement());
+    });
   }
 }
